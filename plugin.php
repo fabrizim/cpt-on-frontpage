@@ -17,23 +17,10 @@ class cpt_on_frontpage {
   
   public function __construct()
   {
-    add_filter('redirect_canonical', array($this, 'redirect_canonical'), 10, 2 );
-    add_filter('pre_get_posts', array($this, 'pre_get_posts'), 10, 1 );
-    add_filter('wp_dropdown_pages', array($this, 'wp_dropdown_pages'), 10, 1);
-    add_filter('post_type_link', array($this, 'post_type_link'), 10, 4);
-    add_action('admin_init', array($this, 'settings_init'));
-  }
-  
-  /**
-   * @wp.filter
-   */
-  public function redirect_canonical( $redirect_url, $requested_url )
-  {
-    global $wp_query;
-    if( $wp_query->get('page_id') == get_option('page_on_front') ){
-      return home_url('/');
-    }
-    return $redirect_url;
+    add_filter('pre_get_posts',       array($this, 'pre_get_posts'), 10, 1 );
+    add_filter('wp_dropdown_pages',   array($this, 'wp_dropdown_pages'), 10, 1);
+    add_filter('post_type_link',      array($this, 'post_type_link'), 10, 4);
+    add_action('admin_init',          array($this, 'settings_init'));
   }
   
   /**
