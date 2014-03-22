@@ -4,11 +4,12 @@ Plugin Name: CPT on Front Page
 Description: Allow for any post type to be displayed on the front page instead of just Pages.
 Author: Mark Fabrizio
 Version: 1.0.0
+Text Domain: cpt_on_frontpage
 Author URI: https://owlwatch.com
 Plugin URI: http://wordpress.org/extend/plugins/cpt-on-frontpage
 
-  This plugin is released under version 3 of the GPL:
-  http://www.opensource.org/licenses/gpl-3.0.html
+This plugin is released under version 3 of the GPL:
+http://www.opensource.org/licenses/gpl-3.0.html
 */
 
 class cpt_on_frontpage {
@@ -57,7 +58,7 @@ class cpt_on_frontpage {
     $opts = substr( $select, $start, $end-$start);
     $close = substr( $select, $end );
     
-    $select = $open.'<optgroup label="Pages">'.$opts.'</optgroup>';
+    $select = $open.'<optgroup label="'.__('Pages', $this->ns ).'">'.$opts.'</optgroup>';
     
     $page_on_front = get_option( 'page_on_front' );
     
@@ -108,7 +109,7 @@ class cpt_on_frontpage {
   {
     add_settings_field(
       $this->ns.'_types',
-      'Post Types allowed on Front Page',
+      __('Post Types allowed on Front Page', $this->ns),
       array(&$this, 'settings_field'),
       'reading'
     );
