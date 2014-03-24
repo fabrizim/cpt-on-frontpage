@@ -4,7 +4,7 @@ Donate link: http://owlwatch.com/
 Tags: front page, custom post types
 Requires at least: 3.5
 Tested up to: 3.8.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,9 @@ You can select them in the "Reading" section of the settings.
 No screenshots.
 
 == Changelog ==
+
+= 1.0.1 =
+* Indentation changes.
 
 = 1.0 =
 * Initial commit.

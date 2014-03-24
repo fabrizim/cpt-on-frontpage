@@ -3,7 +3,7 @@
 Plugin Name: CPT on Front Page
 Description: Allow for any post type to be displayed on the front page instead of just Pages.
 Author: Mark Fabrizio
-Version: 1.0.0
+Version: 1.0.1
 Text Domain: cpt_on_frontpage
 Author URI: https://owlwatch.com
 Plugin URI: http://wordpress.org/extend/plugins/cpt-on-frontpage
