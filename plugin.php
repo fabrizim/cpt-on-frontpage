@@ -18,10 +18,48 @@ class cpt_on_frontpage {
   
   public function __construct()
   {
-    add_filter('pre_get_posts',       array($this, 'pre_get_posts'), 10, 1 );
-    add_filter('wp_dropdown_pages',   array($this, 'wp_dropdown_pages'), 10, 1);
-    add_filter('post_type_link',      array($this, 'post_type_link'), 10, 4);
+    add_filter('parse_query',         array($this, 'parse_query'),        10, 1 );
+    add_filter('pre_get_posts',       array($this, 'pre_get_posts'),      10, 1 );
+    add_filter('wp_dropdown_pages',   array($this, 'wp_dropdown_pages'),  10, 1);
+    add_filter('post_type_link',      array($this, 'post_type_link'),     10, 4);
     add_action('admin_init',          array($this, 'settings_init'));
+  }
+  
+  /**
+   * This fixes an issue with core wordpress code. 
+   * 
+   * @wp.filter
+   */
+  public function parse_query( $query )
+  {
+    $qv =& $query->query_vars;
+    
+    if ( $query->is_home && 'page' == get_option('show_on_front') && get_option('page_on_front') ) {
+      $_query = wp_parse_args($query->query);
+			// pagename can be set and empty depending on matched rewrite rules. Ignore an empty pagename.
+			if ( isset($_query['pagename']) && '' == $_query['pagename'] )
+				unset($_query['pagename']);
+      
+      // this is where will break from core wordpress
+      $ignore = array('preview', 'page', 'paged', 'cpage');
+      global $wp_rewrite;
+      foreach( $wp_rewrite->endpoints as $endpoint ) $ignore[] = $endpoint[1];
+      
+      if ( empty($_query) || !array_diff( array_keys($_query), $ignore ) ) {
+				$query->is_page = true;
+				$query->is_home = false;
+        
+				$qv['page_id'] = get_option('page_on_front');
+				// Correct <!--nextpage--> for page_on_front
+				if ( !empty($qv['paged']) ) {
+					$qv['page'] = $qv['paged'];
+					unset($qv['paged']);
+				}
+			}
+		}
+    
+    // reset the is_singular flag after our updated code above
+    $query->is_singular = $query->is_single || $query->is_page || $query->is_attachment;
   }
   
   /**
@@ -51,12 +89,12 @@ class cpt_on_frontpage {
     if( !$types || !is_array($types) || !count($types) ) return $select;
     
     // otherwise, lets get the all the options...
-    $start = strpos($select, '/option>')+9;
-    $end = strrpos($select, '<');
+    $start  = strpos($select, '/option>')+9;
+    $end    = strrpos($select, '<');
     
-    $open = substr( $select, 0, $start );
-    $opts = substr( $select, $start, $end-$start);
-    $close = substr( $select, $end );
+    $open   = substr( $select, 0, $start );
+    $opts   = substr( $select, $start, $end-$start);
+    $close  = substr( $select, $end );
     
     $select = $open.'<optgroup label="'.__('Pages', $this->ns ).'">'.$opts.'</optgroup>';
     
