@@ -36,9 +36,9 @@ class cpt_on_frontpage {
     
     if ( $query->is_home && 'page' == get_option('show_on_front') && get_option('page_on_front') ) {
       $_query = wp_parse_args($query->query);
-			// pagename can be set and empty depending on matched rewrite rules. Ignore an empty pagename.
-			if ( isset($_query['pagename']) && '' == $_query['pagename'] )
-				unset($_query['pagename']);
+      // pagename can be set and empty depending on matched rewrite rules. Ignore an empty pagename.
+      if ( isset($_query['pagename']) && '' == $_query['pagename'] )
+        unset($_query['pagename']);
       
       // this is where will break from core wordpress
       $ignore = array('preview', 'page', 'paged', 'cpage');
@@ -46,17 +46,17 @@ class cpt_on_frontpage {
       foreach( $wp_rewrite->endpoints as $endpoint ) $ignore[] = $endpoint[1];
       
       if ( empty($_query) || !array_diff( array_keys($_query), $ignore ) ) {
-				$query->is_page = true;
-				$query->is_home = false;
+        $query->is_page = true;
+        $query->is_home = false;
         
-				$qv['page_id'] = get_option('page_on_front');
-				// Correct <!--nextpage--> for page_on_front
-				if ( !empty($qv['paged']) ) {
-					$qv['page'] = $qv['paged'];
-					unset($qv['paged']);
-				}
-			}
-		}
+        $qv['page_id'] = get_option('page_on_front');
+        // Correct <!--nextpage--> for page_on_front
+        if ( !empty($qv['paged']) ) {
+          $qv['page'] = $qv['paged'];
+          unset($qv['paged']);
+        }
+      }
+    }
     
     // reset the is_singular flag after our updated code above
     $query->is_singular = $query->is_single || $query->is_page || $query->is_attachment;
