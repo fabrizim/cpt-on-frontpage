@@ -3,8 +3,8 @@ Contributors: fabrizim
 Donate link: http://owlwatch.com/
 Tags: front page, custom post types
 Requires at least: 3.5
-Tested up to: 3.8.1
-Stable tag: 1.0.1
+Tested up to: 4.3.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,14 +21,17 @@ as the home url.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+= From your WordPress dashboard =
 
-e.g.
+1. Visit 'Plugins > Add New'
+2. Search for 'CPT on Front Page'
+3. Activate CTP on Front Page from your Plugins page.
 
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Allow new post types for the front page at the bottom of "Settings" > "Reading" (make sure to save)
-4. Choose the post type you would like for "Front Page"
+= From WordPress.org =
+
+1. Download CPT on Front Page.
+2. Upload the 'cpt-on-frontpage' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
+3. Activate CTP on Front Page from your Plugins page.
 
 == Frequently Asked Questions ==
 
@@ -41,6 +44,10 @@ You can select them in the "Reading" section of the settings.
 No screenshots.
 
 == Changelog ==
+
+= 1.0.2 =
+* Update documentation in readme.
+* Updated tested version.
 
 = 1.0.1 =
 * Indentation changes.
